@@ -7,7 +7,10 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    @movies = Movie.with_ratings(ratings_list)
+    @all_ratings = Movie.all_ratings
+    
+    @ratings_to_show = ratings_hash
   end
 
   def new
@@ -36,6 +39,14 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
+  end
+  
+  def ratings_hash
+    Hash[ratings_list.collect {|item| [item, "1"]}]
+  end
+  
+  def ratings_list
+    params[:ratings]&.keys || Movie.all_ratings
   end
 
   private
