@@ -6,7 +6,7 @@ class Movie < ActiveRecord::Base
   
   def self.with_ratings (ratings)
     if ratings.nil?
-      all
+      all.order sort_by
     else 
       where(rating: ratings.map(&:upcase))
     end

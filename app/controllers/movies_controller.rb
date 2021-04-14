@@ -9,8 +9,8 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.with_ratings(ratings_list)
     @all_ratings = Movie.all_ratings
-    
     @ratings_to_show = ratings_hash
+    @sort_by = sort_by
   end
 
   def new
@@ -48,6 +48,20 @@ class MoviesController < ApplicationController
   def ratings_list
     params[:ratings]&.keys || Movie.all_ratings
   end
+  
+  def sort_by
+    params[:sort_by] || 'id'
+  end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   private
   # Making "internal" methods private is not required, but is a common practice.
